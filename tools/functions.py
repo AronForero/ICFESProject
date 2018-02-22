@@ -1,0 +1,18 @@
+def letters_to_num(obj):
+    L = ["N", "S", "A", "B", "C", "D", "E", "F", "G", "H"]
+    N = [-1, -2, -10, -11, -12, -13, -14, -15, -16, -17]
+    x = obj.replace(L, N)
+    return x
+
+def shape_cols(obj):
+    print("Columns found: ", obj.describe().shape[1])
+
+    
+#Esta funcion es para ver que tantos nulls/NAN hay
+def missing_data(obj):
+    print(obj[obj.isnull()!=True].count())
+    print("__________________")
+    flights2=obj.dropna()
+    print(flights2[flights2.isnull()!=True].count())
+    print("__________________")
+    print(flights2.shape)

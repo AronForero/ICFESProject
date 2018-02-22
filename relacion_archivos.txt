@@ -1,0 +1,11 @@
+SABER 11 -> 
+    Bases de datos -> Posee datos individuales de cada estudiante. Parametro Importante consecutivo SB#######
+    Indice Socioeconomico -> Se encuentra este consecutivo SB########, y estadisticas generales del colegio.
+    PRESABER11 -> Resultados del examen PRESABER11 + Datos socioeconomicos del estudiante y del colegio. Codigo de estudiante PRESABER##########, Posible relacion con el codigo SB########
+    Antecedentes Escolares -> se encuentra el codigo SABER############. Posible relacion con el codigo SB##########
+
+SABER 359 ->
+    Valores plausibles -> existen unos codigos de indentificacion de la hoja, podrian llegar a ser los mismos del SABER 11?
+
+SERCE -> 
+    Estudiantes y Familia -> Existe un ID de estudiante, podria ser la cedula/tarjeta de Identidad, posiblemente sirva para identificar al estudiante en otras bases de datos.
