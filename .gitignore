@@ -3,3 +3,4 @@ Others/
 jupiter.batch
 jupyterhub.out
 jupyterhub_config.py
+*/.ipynb_checkpoints/
