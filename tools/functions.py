@@ -7,6 +7,18 @@ def letters_to_num(obj):
 def shape_cols(obj):
     print("Columns found: ", obj.describe().shape[1])
 
+<<<<<<< HEAD
+=======
+def obj_2list(*objs):
+    l = []
+    for i in objs:
+        r = []
+        for j in i.columns:
+            r.append(i)
+        l.append(r)
+    return l
+    
+>>>>>>> 7f81ad82ed13e0bbfd953a7385bc3edf76a5b923
     
 #Esta funcion es para ver que tantos nulls/NAN hay
 def missing_data(obj):
