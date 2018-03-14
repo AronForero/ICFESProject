@@ -1,0 +1,1 @@
+iconv -f [codificacion actual] -t [codificacion nueva] file.txt > newfile.txt
