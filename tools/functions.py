@@ -12,7 +12,7 @@ def obj_2list(*objs):
     for i in objs:
         r = []
         for j in i.columns:
-            r.append(i)
+            r.append(j)
         l.append(r)
     return l
     
