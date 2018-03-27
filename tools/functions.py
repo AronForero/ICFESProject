@@ -15,7 +15,16 @@ def obj_2list(*objs):
             r.append(j)
         l.append(r)
     return l
-    
+
+def obj_2set(*objs):
+    l = []
+    for i in objs:
+        r = set()
+        for j in i.columns:
+            r.add(j)
+        l.append(r)
+    return l
+
 #Esta funcion es para ver que tantos nulls/NAN hay
 def missing_data(obj):
     print(obj[obj.isnull()!=True].count())
