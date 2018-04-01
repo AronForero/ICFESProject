@@ -25,6 +25,16 @@ def obj_2set(*objs):
         l.append(r)
     return l
 
+def create_infotable(*obj):
+    l = []
+    for i in obj:
+        r = []
+        r.append(i.shape[0])
+        r.append(i.shape[1])
+        r.append(i.size)
+        l.append(r)
+    return l
+
 #Esta funcion es para ver que tantos nulls/NAN hay
 def missing_data(obj):
     print(obj[obj.isnull()!=True].count())
