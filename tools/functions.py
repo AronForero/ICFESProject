@@ -35,6 +35,16 @@ def create_infotable(*obj):
         l.append(r)
     return l
 
+def get_weights(l):
+    r = []
+    for i in l:
+        t = []
+        year = i.split("..")[1].split("/")[-1].split("-")[1]
+        t.append(year[:-1]+"_"+year[-1])
+        t.append(i.split("..")[0].split("\t")[0])
+        r.append(t)
+    return r
+
 #Esta funcion es para ver que tantos nulls/NAN hay
 def missing_data(obj):
     print(obj[obj.isnull()!=True].count())
