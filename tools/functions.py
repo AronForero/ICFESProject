@@ -41,7 +41,7 @@ def get_weights(l):
         t = []
         year = i.split("..")[1].split("/")[-1].split("-")[1]
         t.append(year[:-1]+"_"+year[-1])
-        t.append(i.split("..")[0].split("\t")[0])
+        t.append(i.split("..")[0].split("\t")[0][0:-1])
         r.append(t)
     return r
 
