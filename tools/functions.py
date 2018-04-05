@@ -35,6 +35,7 @@ def create_infotable(*obj):
         l.append(r)
     return l
 
+#Obtiene los pesos en MB (MegaBytes) de los archivos, y los devuelve en una lista junto con el año que indica de que archivo era
 def get_weights(l):
     r = []
     for i in l:
@@ -44,6 +45,16 @@ def get_weights(l):
         t.append(i.split("..")[0].split("\t")[0][0:-1])
         r.append(t)
     return r
+
+
+#Esta funcion "une" dos filas del DataFrame Pasado como parametro
+#Exactamente lo que hace es sumar los valores de las dos filas, valor por valor, como tengo 1s y 0s me sirve una suma simple
+#Ademas de esto le cambia el valor al nombre de la fila resultante y le hace drop a la segunda fila.
+def merge_rows(df, ind1, ind2, name1, name2):
+    df.iloc[ind1] = df.iloc[ind1] + df.iloc[ind2]
+    df = df.drop([ind2])
+    df = df.replace(to_replace=name1+name2, value=name1)
+    return df
 
 #Esta funcion es para ver que tantos nulls/NAN hay
 def missing_data(obj):
