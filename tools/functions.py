@@ -50,10 +50,12 @@ def get_weights(l):
 #Esta funcion "une" dos filas del DataFrame Pasado como parametro
 #Exactamente lo que hace es sumar los valores de las dos filas, valor por valor, como tengo 1s y 0s me sirve una suma simple
 #Ademas de esto le cambia el valor al nombre de la fila resultante y le hace drop a la segunda fila.
-def merge_rows(df, ind1, ind2, name1, name2):
-    df.iloc[ind1] = df.iloc[ind1] + df.iloc[ind2]
+def merge_rows(df, ind1, ind2):
+    newname = df.loc[ind1][0]
+    df.loc[ind1] = df.loc[ind1] + df.loc[ind2]
     df = df.drop([ind2])
-    df = df.replace(to_replace=name1+name2, value=name1)
+    oldname = df.loc[ind1][0]
+    df = df.replace(to_replace=oldname, value=newname)
     return df
 
 #Esta funcion es para ver que tantos nulls/NAN hay
