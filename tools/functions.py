@@ -62,7 +62,7 @@ def merge_rows(df, ind1, ind2):
 def missing_data(obj):
     print(obj[obj.isnull()!=True].count())
     print("__________________")
-    flights2=obj.dropna()
-    print(flights2[flights2.isnull()!=True].count())
+    obj2=obj.dropna()
+    print(obj2[obj2.isnull()!=True].count())
     print("__________________")
-    print(flights2.shape)
+    print(obj2.shape)
