@@ -1,7 +1,9 @@
-DatosFTPICFES/
-DatosSPADIES/
-Others/
+1_Proyecto/DatosFTPICFES/
+New_Project/DatosFTPICFES/
+1_Proyecto/DatosSPADIES/
+1_Proyecto/Others/
 jupiter.batch
 jupyterhub.out
 jupyterhub_config.py
 */.ipynb_checkpoints/
+New_Project/Descriptive_Analisis/.ipynb_checkpoints/
