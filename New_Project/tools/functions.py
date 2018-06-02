@@ -3,7 +3,7 @@ def drop_lines(df, column, valor):
     for i in indexes:
         df = df.drop([i])
     return df
-        
+
 def letters_to_num(obj, L, N, column):
     obj[column] = obj[column].replace(L, N)
     return obj
