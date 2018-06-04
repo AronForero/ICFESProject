@@ -64,9 +64,9 @@ def merge_rows(df, ind1, ind2):
 
 #Esta funcion es para ver que tantos nulls/NAN hay
 def missing_data(obj):
-    print(obj[obj.isnull()!=True].count())
+    print("Elementos null/NaN", obj.isnull().sum())
     print("__________________")
     obj2=obj.dropna()
-    print(obj2[obj2.isnull()!=True].count())
+    print("Elementos diferentes de null/NaN:", obj2[obj2.isnull()!=True].count())
     print("__________________")
     print(obj2.shape)
