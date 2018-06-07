@@ -8,6 +8,11 @@ def letters_to_num(obj, L, N, column):
     obj[column] = obj[column].replace(L, N)
     return obj
 
+def resample_NaN(df):
+    temp_df = df.copy()
+    temp_df = temp_df.dropna()
+    
+
 def shape_cols(obj):
     print("Columns found: ", obj.describe().shape[1])
 
