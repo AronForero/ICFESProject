@@ -1,7 +1,6 @@
 def drop_lines(df, column, valor):
     indexes = df[df[column] == valor].index
-    for i in indexes:
-        df = df.drop([i])
+    df = df.drop(indexes)
     return df
 
 def letters_to_num(obj, L, N, column):
