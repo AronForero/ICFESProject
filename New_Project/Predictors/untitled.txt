@@ -1,0 +1,1 @@
+Here will take place ona IPYNB for each year and inside of them will be created the different predictors such as Logistic regressions, Decision Tree Regressors, Random Forest Regressor, etc.
