@@ -79,3 +79,15 @@ def missing_data(obj):
     print("Elementos diferentes de null/NaN:", obj2[obj2.isnull()!=True].count())
     print("__________________")
     print(obj2.shape)
+    
+    
+    
+#Funcion para limpiar los TARGETS de algunos archivos
+def clean_target(df, c):
+    for i in df[c].value_counts().sort_index().index:
+        if ',' in i:
+            df[c] = df[c].replace(i, i.replace(',', '.'))
+    
+    for i in df[c].value_counts().sort_index().index:
+        if type(i) == str:
+            df[c] = df[c].replace(i, float(i))
