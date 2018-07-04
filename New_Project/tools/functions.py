@@ -7,14 +7,19 @@ def letters_to_num(obj, L, N, column):
     obj[column] = obj[column].replace(L, N)
     return obj
 
-def resample_NaN(df):
+def resample_NaN(df, col, p):
     import numpy as np
-    indexes = df[df.isnull()].index
-    for i in indexes:
-        s = np.random.choice(df, replace=True)
-        while s == 'NaN':
-            s = np.random.choice(df, replace=True)
-        df.loc[i] = s       
+    indexes = df[df[col].isnull()].index
+    print('cant null', df[col].isnull().sum())
+    c = 0
+    for i in p:
+        ite = indexes[c:c+i]
+        cl = p.index(i)+1
+        for j in ite:
+            df.loc[j, col] = str(cl)
+        print(cl)
+        c += i
+    print('cant null despues:', df[col].isnull().sum())
     return df
 
 def shape_cols(obj):
@@ -84,10 +89,10 @@ def missing_data(obj):
     
 #Funcion para limpiar los TARGETS de algunos archivos
 def clean_target(df, c):
-    for i in df[c].value_counts().sort_index().index:
+    for i in df[c].value_counts().index:
         if ',' in i:
             df[c] = df[c].replace(i, i.replace(',', '.'))
     
-    for i in df[c].value_counts().sort_index().index:
+    for i in df[c].value_counts().index:
         if type(i) == str:
             df[c] = df[c].replace(i, float(i))
