@@ -1,26 +1,40 @@
 def drop_lines(df, column, valor):
-    indexes = df[df[column] == valor].index
+    if valor=='NaN':
+        indexes = df[df[column].isnull()].index
+    else:
+        indexes = df[df[column] == valor].index
     df = df.drop(indexes)
-    return df
+    return (df)
 
 def letters_to_num(obj, L, N, column):
     obj[column] = obj[column].replace(L, N)
     return obj
 
-def resample_NaN(df, col, p):
+def get_proportions(df, col):
+    """This function get the proportion of each value found in the DataFramea into a list"""
+    p = []
+    for i, j in enumerate(df[col].value_counts().sort_index().values, 1):
+        p.append((j)/df[col].value_counts().sort_index().values.sum())
+    T = df[col].isnull().sum()
+    for i in range(len(p)):
+        p[i] = round(round(p[i],8)*T)
+    return(p)
+
+def resample_NaN_proportion(df, col, p, typ):
+    """This function put a value in the position of the NaN values. And Returns the dataframe modified and the amount of remaining NaN values"""
     import numpy as np
     indexes = df[df[col].isnull()].index
-    print('cant null', df[col].isnull().sum())
+    print('cant null antes:', df[col].isnull().sum())
     c = 0
     for i in p:
         ite = indexes[c:c+i]
-        cl = p.index(i)+1
+        cl = df[col].value_counts().sort_index().index[p.index(i)]
         for j in ite:
-            df.loc[j, col] = str(cl)
-        print(cl)
+            df.loc[j, col] = typ(cl)
         c += i
     print('cant null despues:', df[col].isnull().sum())
-    return df
+    r = df[col].isnull().sum()
+    return(df, r)
 
 def shape_cols(obj):
     print("Columns found: ", obj.describe().shape[1])
