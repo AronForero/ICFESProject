@@ -10,6 +10,12 @@ def letters_to_num(obj, L, N, column):
     obj[column] = obj[column].replace(L, N)
     return obj
 
+def Do_resamples(df, col, typ):
+    p = get_proportions(df, col)
+    df, r = resample_NaN_proportion(df, col, p, typ)
+    while(r != 0):
+        df, r = resample_NaN_proportion(df, col, p, typ)
+
 def get_proportions(df, col):
     """This function get the proportion of each value found in the DataFramea into a list"""
     p = []
@@ -103,6 +109,7 @@ def missing_data(obj):
     
 #Funcion para limpiar los TARGETS de algunos archivos
 def clean_target(df, c):
+    """Replace the ',' for '.' and transform them into numbers"""
     for i in df[c].value_counts().index:
         if ',' in i:
             df[c] = df[c].replace(i, i.replace(',', '.'))
