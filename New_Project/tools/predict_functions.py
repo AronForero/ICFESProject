@@ -25,7 +25,7 @@ def plot_predictions_KF(Model, target, X, Y, kf): #PERFECT FUNCTION - DECIDED IF
         score = MAD(Y[target].iloc[i], Y_pred) #HERE THE MAE IS CALCULATED
         ########################################################################
         ax.plot(Y[target].iloc[i], Y_pred, 'go', label='Prediction')
-        #ax.plot(Y[target].iloc[i], Y[target].iloc[i]) #RECTA DE REGRESION PERFECTA
+        ax.plot(Y[target].iloc[i], Y[target].iloc[i]) #RECTA DE REGRESION PERFECTA
         ax.set_title('Fold: '+str(j)+'. Score: '+str(score))
         ax.set_xlabel('Real_Value')
         ax.set_ylabel('Prediction')
