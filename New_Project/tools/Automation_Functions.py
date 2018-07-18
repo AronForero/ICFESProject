@@ -1,3 +1,8 @@
+def MAD(Y, YP): #MAE - MEAN ABSOLUTE ERROR FOR ME
+    """Returns the mean loss"""
+    m = np.mean(abs(Y-YP))
+    return m
+
 def Prepare_data(data, c):
     """Returns the data ready to be used in a prediction.
     
@@ -69,11 +74,19 @@ def Show_Score(LR_scores, DT_scores, RF_scores, i):
 def Check_slice(lista):
     """Check if the Dataset contains all the required columns to train, and all the subject to predict.
     -lista: List of the columns of the dataset to be used."""
-    lo = len(list(set(X_list)-set(lista)))
-    Tl = len(list(set(y_list)-set(lista)))
-    print('Targets Ready') if Tl == 0 else print('There are no ', Tl, 'in the DataFrame')
-    print('Ready to Train') if lo == 0 else print('There are no ', lo, 'in the DataFrame: ', 
-                                                  list(set(X_list)-set(lista)))
+    
+    X_list = ['ESTU_GENERO', 'ESTU_ACT_PROX_ANNO', 'COD_INTERDISCIPLINAR', 'COLE_CARACTER', 'ESTU_RESIDE_DEPTO',
+                  'FAMI_APORTANTES', 'FAMI_NUM_HERMANOS_EDUSUPERIOR', 'COLE_JORNADA', 'FAMI_OCUPA_MADRE',
+                  'ESTU_CARRDESEADA_RAZON', 'FAMI_PERSONAS_HOGAR', 'ESTU_RAZONINSTITUTO', 'FAMI_OCUPA_PADRE',
+                  'FAMI_EDUCA_PADRE', 'FAMI_NUM_HERMANOS', 'FAMI_EDUCA_MADRE', 'COLE_VALOR_PENSION', 'ESTU_RESIDE_MCPIO',
+                  'ESTU_NACIMIENTO_MES', 'ESTU_IES_COD_DESEADA', 'ESTU_NACIMIENTO_DIA', 'ESTU_NACIMIENTO_ANNO',
+                  'ESTU_CARRDESEADA_COD', 'COLE_COD_ICFES', 'FAMI_INGRESO_FMILIAR_MENSUAL']
+    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
+              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
+    lo = list(set(X_list)-set(lista))
+    Tl = list(set(y_list)-set(lista))
+    print('Targets Ready') if Tl == 0 else print('There are no ', len(Tl), 'in the DataFrame:', Tl)
+    print('Ready to Train') if lo == 0 else print('There are no ', len(lo), 'in the DataFrame:', lo)
     
 def Predict_all_Subjects(dataset):
     """Uses the Automation functions to train and test models for each Subject in the given Dataset.
@@ -81,6 +94,10 @@ def Predict_all_Subjects(dataset):
     
     Returns:
         -One Dataset with all the Scores indexed by subject"""
+    
+    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
+              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
+    
     LR_List = []
     DT_List = []
     RF_List = []
@@ -147,6 +164,10 @@ def Test_all_Subjects(dataset1, dataset2):
     
     Returns:
         -One DataFrame with all the Scores for each Subject."""
+    
+    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
+              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
+    
     LR_List = []
     DT_List = []
     RF_List = []
@@ -154,9 +175,9 @@ def Test_all_Subjects(dataset1, dataset2):
     for i in y_list:
         LR, LR_Score, DT, DT_Score, RF, RF_Score = Test_with_2sets(dataset1, dataset2, i)
         idx_List.append(i)
-        LR_List.append(LR_score)
-        DT_List.append(DT_score)
-        RF_List.append(RF_score)
+        LR_List.append(LR_Score)
+        DT_List.append(DT_Score)
+        RF_List.append(RF_Score)
     Scores_List = {'Subject': idx_List, 'LR': LR_List, 'DTR': DT_List, 'RFR': RF_List}
     Score_DF = pd.DataFrame(Scores_List)
     return(Score_DF)

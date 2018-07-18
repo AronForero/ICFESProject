@@ -19,8 +19,9 @@ def Do_resamples(df, col, typ):
 def get_proportions(df, col):
     """This function get the proportion of each value found in the DataFramea into a list"""
     p = []
-    for i, j in enumerate(df[col].value_counts().sort_index().values, 1):
-        p.append((j)/df[col].value_counts().sort_index().values.sum())
+    TVS = df[col].value_counts().sort_index().values.sum()
+    for j in df[col].value_counts().sort_index().values:
+        p.append((j)/TVS)
     T = df[col].isnull().sum()
     for i in range(len(p)):
         p[i] = round(round(p[i],8)*T)
@@ -28,15 +29,15 @@ def get_proportions(df, col):
 
 def resample_NaN_proportion(df, col, p, typ):
     """This function put a value in the position of the NaN values. And Returns the dataframe modified and the amount of remaining NaN values"""
-    import numpy as np
-    indexes = df[df[col].isnull()].index
+    
     print('cant null antes:', df[col].isnull().sum())
     c = 0
     for i in p:
-        ite = indexes[c:c+i]
         cl = df[col].value_counts().sort_index().index[p.index(i)]
-        for j in ite:
-            df.loc[j, col] = typ(cl)
+        if int(i)!=0:
+            df[col].fillna(typ(cl), limit=int(i), inplace=True)
+        else:
+            df[col].fillna(typ(cl), limit=1, inplace=True)
         c += i
     print('cant null despues:', df[col].isnull().sum())
     r = df[col].isnull().sum()
