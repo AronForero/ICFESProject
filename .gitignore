@@ -2,11 +2,10 @@
 New_Project/DatosFTPICFES/
 1_Proyecto/DatosSPADIES/
 1_Proyecto/Others/
-jupiter.batch
-jupyterhub.out
-jupyterhub_config.py
-*/.ipynb_checkpoints/
 New_Project/Analysis_Predictions/.ipynb_checkpoints/
 New_Project/Predictors/.ipynb_checkpoints/
 New_Project/.ipynb_checkpoints/
 New_Project/Predictors/.ipynb_checkpoints/
+jupiter.batch                                                                                                                       
+jupyterhub.out                                                                                                                      
+jupyterhub_config.py 
