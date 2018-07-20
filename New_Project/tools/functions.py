@@ -112,7 +112,7 @@ def missing_data(obj):
 def clean_target(df, c):
     """Replace the ',' for '.' and transform them into numbers"""
     for i in df[c].value_counts().index:
-        if ',' in i:
+        if ',' in str(i):
             df[c] = df[c].replace(i, i.replace(',', '.'))
     
     for i in df[c].value_counts().index:
