@@ -1,5 +1,5 @@
 def MAD(Y, YP): #MAE - MEAN ABSOLUTE ERROR FOR ME
-    """Returns the mean loss"""
+    """Returns the MEAN ABSOLUTE ERROR between the prediction and the real value"""
     m = np.mean(abs(Y-YP))
     return m
 
@@ -10,8 +10,9 @@ def Prepare_data(data, c):
     -c: column/subject to predict
     
     returns:
-        -X2: Predictive variables powered to 2
-        -Poly_X: Predictive variables transformed by a PolynomialFeatures object with degree = 2
+        -X2: New Predictive variables powered to 2
+        -LR_Data: Old Predictive variables transformed by PCA of 35 components. This will be used for the Linear Regression Object
+        -DT_Data: Old Predictive variables transformed by PCA of 33 components. This will be used for the Decision Tree Object
         -Y: Dataframe with the chosen target and the others"""
     data = data.sort_values(by=c)
     
@@ -25,36 +26,43 @@ def Prepare_data(data, c):
     y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
               'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
     
-    X_data = data.filter(items = New_x_list)
+    X_list = data.columns.difference(y_list)
+    
+    New_X_data = data.filter(items = New_x_list)
     Y = data.filter(items = y_list)
+    X_data = data.filter(items = X_list)
     
-    X2 = X_data**2
+    X2 = New_X_data**2
     
-    Poly = PolynomialFeatures(degree=2)
-    Poly_X = Poly.fit_transform(X_data)
+    pca_LR = PCA(n_components=35);
+    LR_Data = pca_LR.fit_transform(X_data);
     
-    return(X2, Poly_X, Y)
+    pca_DT = PCA(n_components=33);
+    DT_Data = pca_DT.fit_transform(X_data);
+    
+    return(X2, LR_Data, DT_Data, Y)
 
 
-def Get_Scores(X2, Poly_X, Y, c):
+def Get_Scores(X2, LR_Data, DT_Data, Y, c):
     """Train the three models (LinearRegression, DecisionTreeRegressor, RandomForestRegressor), and 
     test them. All of this with a cross_val_score object
     
-    -X2: Predictive variables powered to 2
-    -Poly_X: Predictive variables transformed by a PolynomialFeatures object with degree = 2
+    -X2: New Predictive variables powered to 2
+    -LR_Data: Old Predictive variables transformed by PCA of 35 components. This will be used for the Linear Regression Object
+    -DT_Data: Old Predictive variables transformed by PCA of 33 components. This will be used for the Decision Tree Object
     -Y: Dataframe with the chosen target and the others
     -c: Chosen column/subject
     
     Returns:
-        -Scores of the trained models"""
+        -Scores(MEAN ABSOLUTE ERROR) of the trained models"""
     
     cv = ShuffleSplit(n = X2.shape[0], n_iter=5, test_size=0.2)
     
     LR = LinearRegression(n_jobs=4)
-    LR_scores = cross_val_score(LR, X2, Y[c], scoring='mean_absolute_error', cv = cv, n_jobs=4)
+    LR_scores = cross_val_score(LR, LR_Data, Y[c], scoring='mean_absolute_error', cv = cv, n_jobs=4)
     
     DT = DecisionTreeRegressor(max_depth=6)
-    DT_scores = cross_val_score(DT, Poly_X, Y[c], scoring='mean_absolute_error', cv = cv, n_jobs=4)
+    DT_scores = cross_val_score(DT, DT_Data, Y[c], scoring='mean_absolute_error', cv = cv, n_jobs=4)
     
     RF = RandomForestRegressor(max_depth=10, n_jobs=4)
     RF_scores = cross_val_score(RF, X2, Y[c], scoring='mean_absolute_error', cv = cv, n_jobs=4)
@@ -71,8 +79,8 @@ def Show_Score(LR_scores, DT_scores, RF_scores, i):
     
 
     
-def Check_slice(lista):
-    """Check if the Dataset contains all the required columns to train, and all the subject to predict.
+def Check_C_RFR(lista):
+    """Check if the Dataset contains all the required columns to train the Random Forest Regressor, and all the subject to predict.
     -lista: List of the columns of the dataset to be used."""
     
     X_list = ['ESTU_GENERO', 'ESTU_ACT_PROX_ANNO', 'COD_INTERDISCIPLINAR', 'COLE_CARACTER', 'ESTU_RESIDE_DEPTO',
@@ -103,8 +111,8 @@ def Predict_all_Subjects(dataset):
     RF_List = []
     idx_List = []
     for i in y_list:
-        X2, Poly_X, Y = Prepare_data(dataset, i)
-        LR_scores, DT_scores, RF_scores = Get_Scores(X2, Poly_X, Y, i)
+        X2, LR_Data, DT_Data, Y = Prepare_data(dataset, i)
+        LR_scores, DT_scores, RF_scores = Get_Scores(X2, LR_Data, DT_Data, Y, i)
         Show_Score(LR_scores, DT_scores, RF_scores, i)
         idx_List.append(i)
         LR_List.append(np.mean(LR_scores))
@@ -128,22 +136,23 @@ def Test_with_2sets(dataset1, dataset2, c):
     Returns:
         -The trained Models
         -The Score of each Model"""
-    X2, Poly_X, Y = Prepare_data(dataset1, c)
-    X2_2, Poly_X_2, Y_2 = Prepare_data(dataset2, c)
+    
+    X2, LR_Data, DT_Data, Y = Prepare_data(dataset1, c)
+    X2_2, LR_Data_2, DT_Data_2, Y_2 = Prepare_data(dataset2, c)
     
     ##################TRAINING SIDE######################
     LR = LinearRegression(n_jobs=4);
-    LR.fit(X2, Y[c]);
+    LR.fit(LR_Data, Y[c]);
     
-    DT = DecisionTreeRegressor(max_depth=6);
-    DT.fit(Poly_X, Y[c]);
+    DT = DecisionTreeRegressor(max_depth=7);
+    DT.fit(DT_Data, Y[c]);
     
     RF = RandomForestRegressor(max_depth=10, n_jobs=4);
     RF.fit(X2, Y[c]);
     ####################################################
     ##################TESTING SIDE######################
-    LR_Score = MAD(Y_2[c], LR.predict(X2_2))
-    DT_Score = MAD(Y_2[c], DT.predict(Poly_X_2))
+    LR_Score = MAD(Y_2[c], LR.predict(LR_Data_2))
+    DT_Score = MAD(Y_2[c], DT.predict(DT_Data_2))
     RF_Score = MAD(Y_2[c], RF.predict(X2_2))
     print('Scores for the Columns/Subject:', c)
     print('Score LR:', LR_Score)

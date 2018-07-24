@@ -1,1 +1,2 @@
 /var/spool/slurmd/job94741/slurm_script: 2: /var/spool/slurmd/job94741/slurm_script: BATCH: not found
+slurmstepd: *** JOB 94741 CANCELLED AT 2018-07-23T21:31:54 *** on guane02

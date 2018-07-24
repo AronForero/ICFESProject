@@ -137,10 +137,10 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
                                                             n_jobs=n_jobs,
                                                             scoring = 'mean_absolute_error',
                                                             train_sizes=train_sizes)
-    train_scores_mean = np.mean(-train_scores/100, axis=1)
-    train_scores_std = np.std(-train_scores/100, axis=1)
-    test_scores_mean = np.mean(-test_scores/100, axis=1)
-    test_scores_std = np.std(-test_scores/100, axis=1)
+    train_scores_mean = np.mean(-train_scores, axis=1)
+    train_scores_std = np.std(-train_scores, axis=1)
+    test_scores_mean = np.mean(-test_scores, axis=1)
+    test_scores_std = np.std(-test_scores, axis=1)
     plt.grid()
     plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
                      train_scores_mean + train_scores_std, alpha=0.1,
