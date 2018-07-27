@@ -1,5 +1,5 @@
 def label_encoder(df):
-    assert sum(df.dtypes == 'object') >= 1, 'dataframe not have a values of type object'
+    assert sum(df.dtypes == 'object') >= 1, 'dataframe does not have any column of type object'
     #se saca la lista de columnas de tipo object
     df1 = df.copy()
     list_columns_object = df1.dtypes[df1.dtypes == 'object'].index

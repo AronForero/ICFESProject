@@ -23,8 +23,8 @@ def Prepare_data(data, c):
                   'ESTU_NACIMIENTO_MES', 'ESTU_IES_COD_DESEADA', 'ESTU_NACIMIENTO_DIA', 'ESTU_NACIMIENTO_ANNO',
                   'ESTU_CARRDESEADA_COD', 'COLE_COD_ICFES', 'FAMI_INGRESO_FMILIAR_MENSUAL']
     
-    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
-              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
+    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_INTERDISCIPLINAR', 'PUNT_QUIMICA', 
+              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_HISTORIA', 'PUNT_IDIOMA']
     
     X_list = data.columns.difference(y_list)
     
@@ -89,8 +89,8 @@ def Check_C_RFR(lista):
                   'FAMI_EDUCA_PADRE', 'FAMI_NUM_HERMANOS', 'FAMI_EDUCA_MADRE', 'COLE_VALOR_PENSION', 'ESTU_RESIDE_MCPIO',
                   'ESTU_NACIMIENTO_MES', 'ESTU_IES_COD_DESEADA', 'ESTU_NACIMIENTO_DIA', 'ESTU_NACIMIENTO_ANNO',
                   'ESTU_CARRDESEADA_COD', 'COLE_COD_ICFES', 'FAMI_INGRESO_FMILIAR_MENSUAL']
-    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
-              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
+    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_INTERDISCIPLINAR', 'PUNT_QUIMICA', 
+              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_HISTORIA', 'PUNT_IDIOMA']
     lo = list(set(X_list)-set(lista))
     Tl = list(set(y_list)-set(lista))
     print('Targets Ready') if Tl == 0 else print('There are no ', len(Tl), 'in the DataFrame:', Tl)
@@ -103,8 +103,8 @@ def Predict_all_Subjects(dataset):
     Returns:
         -One Dataset with all the Scores indexed by subject"""
     
-    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
-              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
+    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_INTERDISCIPLINAR', 'PUNT_QUIMICA', 
+              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_HISTORIA', 'PUNT_IDIOMA']
     
     LR_List = []
     DT_List = []
@@ -174,8 +174,8 @@ def Test_all_Subjects(dataset1, dataset2):
     Returns:
         -One DataFrame with all the Scores for each Subject."""
     
-    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_HISTORIA', 'PUNT_QUIMICA', 
-              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_INTERDISCIPLINAR', 'PUNT_IDIOMA']
+    y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_INTERDISCIPLINAR', 'PUNT_QUIMICA', 
+              'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_HISTORIA', 'PUNT_IDIOMA']
     
     LR_List = []
     DT_List = []
