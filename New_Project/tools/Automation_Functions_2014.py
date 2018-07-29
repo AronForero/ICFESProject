@@ -21,30 +21,28 @@ def Prepare_data_2014(data, c):
     Y = data.filter(items = new_y_list)
     X_data = data.filter(items = X_list)
     
-    poly = PolynomialFeatures(degree=2)
-    LR_Data = poly.fit_transform(X_data);
-    LR_Data = pd.DataFrame(LR_Data)
+    DT_Data = X_data
+    RF_Data = X_data
     
     ward = Prepare_RFR_data_2014(data)
     if ward == 1:
-        X_list = ['COLE_AREA_UBICACION', 'COLE_BILINGUE', 'COLE_CALENDARIO', 'COLE_CARACTER', 'COLE_COD_ICFES', 'COLE_GENERO',
-                  'COLE_JORNADA', 'COLE_NATURALEZA', 'ESTU_COD_OTRO_PAIS_PLANTEL', 'ESTU_COD_PLANTEL', 'ESTU_COD_RESIDE_DEPTO',
-                  'ESTU_DEPTO_PRESENTACION', 'ESTU_EDAD', 'ESTU_ESTUDIANTE', 'ESTU_ETNIA', 'ESTU_GENERO', 
-                  'ESTU_IES_COD_DESEADA', 'ESTU_IES_MPIO_DESEADA', 'ESTU_MCPIO_PRESENTACION', 'ESTU_NACIMIENTO_DIA',
-                  'ESTU_NACIMIENTO_MES', 'ESTU_PAIS_RESIDE', 'ESTU_PRESENTO_ANTECEDENTES', 'ESTU_PRESENTO_EXPECTATIVAS',
-                  'ESTU_PRIVADO_LIBERTAD', 'ESTU_TIPO_CARRERA_DESEADA', 'ESTU_TRABAJA', 'ESTU_VECES_ESTADO',
-                  'ESTU_VECES_ESTADO_ESTUDIANTIL', 'ESTU_ZONA_RESIDE', 'FAMI_AUTOMOVIL', 'FAMI_CELULAR', 'FAMI_CUARTOS_HOGAR',
-                  'FAMI_DVD', 'FAMI_EDUCA_PADRE', 'FAMI_HORNO', 'FAMI_INGRESO_FMILIAR_MENSUAL', 'FAMI_INTERNET', 
-                  'FAMI_LAVADORA','FAMI_MICROONDAS', 'FAMI_NEVERA', 'FAMI_NIVEL_SISBEN', 'FAMI_OCUPA_MADRE', 
-                  'FAMI_OCUPA_PADRE','FAMI_PERSONAS_HOGAR', 'FAMI_PISOSHOGAR', 'FAMI_SERVICIO_TELEVISION', 
-                  'FAMI_TELEFONO_FIJO']
+        New_x_list = ['COLE_AREA_UBICACION', 'COLE_BILINGUE', 'COLE_CALENDARIO', 'COLE_CARACTER', 'COLE_COD_ICFES',
+                      'COLE_GENERO', 'COLE_JORNADA', 'COLE_NATURALEZA', 'ESTU_COD_OTRO_PAIS_PLANTEL', 'ESTU_COD_PLANTEL',
+                      'ESTU_COD_RESIDE_DEPTO', 'ESTU_DEPTO_PRESENTACION', 'ESTU_EDAD', 'ESTU_ESTUDIANTE', 'ESTU_ETNIA',
+                      'ESTU_GENERO', 'ESTU_IES_COD_DESEADA', 'ESTU_IES_MPIO_DESEADA', 'ESTU_MCPIO_PRESENTACION',
+                      'ESTU_NACIMIENTO_DIA', 'ESTU_NACIMIENTO_MES', 'ESTU_PAIS_RESIDE', 'ESTU_PRESENTO_ANTECEDENTES',
+                      'ESTU_PRESENTO_EXPECTATIVAS', 'ESTU_PRIVADO_LIBERTAD', 'ESTU_TIPO_CARRERA_DESEADA', 'ESTU_TRABAJA',
+                      'ESTU_VECES_ESTADO', 'ESTU_VECES_ESTADO_ESTUDIANTIL', 'ESTU_ZONA_RESIDE', 'FAMI_AUTOMOVIL',
+                      'FAMI_CELULAR', 'FAMI_CUARTOS_HOGAR', 'FAMI_DVD', 'FAMI_EDUCA_PADRE', 'FAMI_HORNO',
+                      'FAMI_INGRESO_FMILIAR_MENSUAL', 'FAMI_INTERNET', 'FAMI_LAVADORA','FAMI_MICROONDAS', 'FAMI_NEVERA',
+                      'FAMI_NIVEL_SISBEN', 'FAMI_OCUPA_MADRE', 'FAMI_OCUPA_PADRE','FAMI_PERSONAS_HOGAR', 'FAMI_PISOSHOGAR',
+                      'FAMI_SERVICIO_TELEVISION', 'FAMI_TELEFONO_FIJO']
         X = data.filter(items=New_x_list)
-        DT_Data = X
-        RF_Data = X
+        
+        LR_Data = X**2
     else:
         X = 0
-        DT_Data = X
-        RF_Data = X
+        LR_Data = X
     
     return(LR_Data, DT_Data, RF_Data, Y)
 
@@ -145,8 +143,7 @@ def Predict_all_Subjects_2014(dataset):
     return(Scores_DF)
 
 #############################################################################################
-#############################################################################################
-
+############################################################################################
 def Test_with_2sets_2014(dataset1, dataset2, c):
     """Train three models with the first Dataset, and Test the models with the second Dataset,
     -Shows the Mean Absolute Error of each model.
@@ -159,8 +156,10 @@ def Test_with_2sets_2014(dataset1, dataset2, c):
         -The trained Models
         -The Score of each Model"""
     
+   
     LR_Data, DT_Data, RF_Data, Y = Prepare_data_2014(dataset1, c)
     LR_Data_2, DT_Data_2, RF_Data_2, Y_2 = Prepare_data_2014(dataset2, c)
+    
     
     ##################TRAINING AND TESTING ######################
     print('Scores for the Columns/Subject:', c)
@@ -175,8 +174,10 @@ def Test_with_2sets_2014(dataset1, dataset2, c):
             print('DATA ERROR... Linear Regression: Se pudo entrenar pero no validar.')
             LR_Score = -1
         else:
-            LR_Score = MAD(Y_2[c], LR.predict(LR_Data_2))
-            print('Score LR:', LR_Score)
+            try:
+                LR_Score = MAD(Y_2[c], LR.predict(LR_Data_2))
+                print('Score LR:', LR_Score)
+            except
     
     if type(DT_Data) != pd.core.frame.DataFrame:
         DT = 0
@@ -203,7 +204,7 @@ def Test_with_2sets_2014(dataset1, dataset2, c):
             print('DATA ERROR... Random Forest: Se pudo entrenar pero no validar.')
             RF_Score = -1
         else:
-            RF_Score = MAD(Y_2[c], RF.predict(X2_2))
+            RF_Score = MAD(Y_2[c], RF.predict(RF_Data_2))
             print('Score RF:', RF_Score)
             
     print()

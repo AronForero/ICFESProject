@@ -15,10 +15,14 @@ def Prepare_data(data, c):
         -DT_Data: Old Predictive variables transformed by PCA of 33 components. This will be used for the Decision Tree Object
         -Y: Dataframe with the chosen target and the others"""
     data = data.sort_values(by=c) 
+    r_y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_INTERDISCIPLINAR', 'PUNT_QUIMICA', 
+                'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_HISTORIA', 'PUNT_IDIOMA', 'PUNT_C_SOCIALES', 'PUNT_PROFUNDIZACION',
+                'ESTU_PUESTO', 'PUNT_INGLES', 'PUNT_COMP_FLEXIBLE', 'DESEMP_INGLES', 'DESEMP_PROFUNDIZACION',
+                'NOMBRE_INTERDISCIPLINAR', 'NOMBRE_PROFUNDIZACION']
     y_list = ['PUNT_BIOLOGIA', 'PUNT_MATEMATICAS', 'PUNT_FILOSOFIA', 'PUNT_FISICA', 'PUNT_INTERDISCIPLINAR', 'PUNT_QUIMICA', 
               'PUNT_LENGUAJE', 'PUNT_GEOGRAFIA', 'PUNT_HISTORIA', 'PUNT_IDIOMA', 'PUNT_C_SOCIALES', 'PUNT_PROFUNDIZACION',
               'ESTU_PUESTO', 'PUNT_INGLES', 'PUNT_COMP_FLEXIBLE']
-    X_list = data.columns.difference(y_list)
+    X_list = data.columns.difference(r_y_list)
     
     Y = data.filter(items = y_list)
     X_data = data.filter(items = X_list)
@@ -190,7 +194,7 @@ def Test_with_2sets(dataset1, dataset2, c):
     else:
         DT = DecisionTreeRegressor(max_depth=7);
         DT.fit(DT_Data, Y[c]);
-        if type(LR_Data_2) != pd.core.frame.DataFrame:
+        if type(DT_Data_2) != pd.core.frame.DataFrame:
             print('DATA ERROR... Decision Tree: Se pudo entrenar pero no validar.')
             DT_Score = -1
         else:
@@ -204,7 +208,7 @@ def Test_with_2sets(dataset1, dataset2, c):
     else:
         RF = RandomForestRegressor(max_depth=10, n_jobs=4);
         RF.fit(X2, Y[c]);
-        if type(LR_Data_2) != pd.core.frame.DataFrame:
+        if type(X2_2) != pd.core.frame.DataFrame:
             print('DATA ERROR... Random Forest: Se pudo entrenar pero no validar.')
             RF_Score = -1
         else:
