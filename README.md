@@ -17,5 +17,5 @@ Se realizaron dos tipos de pruebas.
 
 Se sacaron conclusiones de acuerdo a los resulados obtenidos en las pruebas.
 
-# Para mas informacion sobre el proyecto, **SE RECOMIENDA LEER EL DOCUMENTO Informe_Final.pdf QUE SE ENCUENTRA EN EL REPOSITORIO**.
+## Para mas informacion sobre el proyecto, **SE RECOMIENDA LEER EL DOCUMENTO Informe_Final.pdf QUE SE ENCUENTRA EN EL REPOSITORIO**.
 
