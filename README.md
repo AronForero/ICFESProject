@@ -1,6 +1,6 @@
 # ICFESProject
 
-Este proyecto fue realizado con el fin de culminar mis estudios de progrado como Ingeniero de Sistemas en la Universidad Industrial de Santander (UIS).  
+Este proyecto fue realizado con el fin de culminar mis estudios de pregrado como Ingeniero de Sistemas en la Universidad Industrial de Santander (UIS).  
 
 ### En resumen:  
 En este proyecto se trataron los datos(Solo los del examen SABER11) proporcionados por el Instituto Colombiano para la Evaluacion de la Educacion,
@@ -17,5 +17,4 @@ Se realizaron dos tipos de pruebas.
 
 Se sacaron conclusiones de acuerdo a los resulados obtenidos en las pruebas.
 
-## Para mas informacion sobre el proyecto, **SE RECOMIENDA LEER EL DOCUMENTO Informe_Final.pdf QUE SE ENCUENTRA EN EL REPOSITORIO**.
 
